@@ -4,6 +4,7 @@ $ npm install --save-dev gulp-rev<br>
 $ npm install --save-dev gulp-rev-collector<br>
 $ npm install --save-dev gulp-cdnizer
 ## Usage
+### addMd5
 ```javascript
 var rev = require('gulp-rev'); 
 var revCollector = require('gulp-rev-collector');   
@@ -29,4 +30,25 @@ gulp.task('replaceJs',['img',  'fonts', 'html','other'], function(){
 })
 gulp.task('build', ['img', 'fonts', 'cdn', 'other', 'replaceCss', 'replaceJs', 'jsCdn']);
 ```
-
+###addCdn
+```javascript
+//html加载的css，js文件添加cdn前缀
+var cdnizer = require("gulp-cdnizer");
+gulp.task('cdn', ['html'], function () { 
+	gulp.src(path.join(conf.paths.dist, '/index.html'), function(err,files){
+	}).pipe(cdnizer({
+			defaultCDNBase: '//my.cdn.url:9528/',//需要添加的cdn前缀
+	 		files: ['**/*.{js,css}']//需要添加cdn前缀的路径的文件类型
+		}		
+	)).pipe(gulp.dest(path.join(conf.paths.dist,'/')));	
+	return true;
+});
+//js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不要在此做操作
+gulp.task('jsCdn',['html','replaceJs'],function(){
+	gulp.src(path.join(conf.paths.dist,'/scripts/*.js'))
+	.pipe(cdnizer({
+		defaultCDNBase: '//my.cdn.url:9528/',	
+		files: ['**/*.{gif,png,jpg,jpeg}']
+	}))
+	.pipe(gulp.dest(path.join(conf.paths.dist,'/scripts')))
+})
