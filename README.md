@@ -21,7 +21,8 @@ gulp.task('img',function(){
   .pipe(rev.manifest())
   .pipe(gulp.dest(path.join(conf.paths.dist,'/assets/images')));
 });
-
+//其中生成了一个json文件，通过这个文件可以实现文件中引用文件名的替换
+//css，js文件中引用的图片添加对应的md5码
 gulp.task('replaceCss',['img',  'fonts', 'html','other'], function(){
 	return gulp.src([path.join(conf.paths.dist,'assets/images/*.json'),path.join(conf.paths.dist,'/styles/*.css')])
 	.pipe(revCollector())
@@ -35,8 +36,7 @@ gulp.task('replaceJs',['img',  'fonts', 'html','other'], function(){
 gulp.task('build', ['img', 'fonts', 'cdn', 'other', 'replaceCss', 'replaceJs', 'jsCdn']);
 ```
 
-	其中生成了一个json文件，通过这个文件可以实现文件中引用文件名的替换
-	css，js文件中引用的图片添加对应的md5码
+	
 ###addCdn
 ```javascript
 //html加载的css，js文件添加cdn前缀
