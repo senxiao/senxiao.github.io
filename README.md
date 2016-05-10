@@ -66,6 +66,7 @@ gulp.task('jsCdn',['html','replaceJs'],function(){
 	}))
 	.pipe(gulp.dest(path.join(conf.paths.dist,'/scripts')))
 })
+```
 
 ### 注意事项：
 cdnizer无法给相对路径添加cdn前缀，需要将路径前面的../替换成cdn
