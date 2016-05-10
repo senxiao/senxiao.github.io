@@ -8,9 +8,12 @@ $ npm install --save-dev gulp-cdnizer
 需要解决的问题：
 1、资源的唯一性，以便当文件内容发生变化时，cdn服务器会自动从本地加载新文件
 2、给引用的资源添加cdn前缀
+解决方案：
+1、给js，css，img文件添加md5码，并在引用中添加相应的md5码
+2、通过替换
 ```
 ### addMd5
-图片添加md5码
+图片添加md5码并将文件中引用的图片文件名做相应更改，也可以用此方法给js，css文件添加md5码
 
 ```javascript
 var rev = require('gulp-rev'); 
