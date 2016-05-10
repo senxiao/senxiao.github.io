@@ -1,9 +1,4 @@
 # md5和cdn解决方案
-## Istall
-$ npm install --save-dev gulp-rev<br>
-$ npm install --save-dev gulp-rev-collector<br>
-$ npm install --save-dev gulp-cdnizer
-## Usage
 ```
 需要解决的问题：
 1、资源的唯一性，以便当文件内容发生变化时，cdn服务器会自动从本地加载新文件
@@ -12,6 +7,13 @@ $ npm install --save-dev gulp-cdnizer
 1、通过rev和rev-collector给js，css，img文件添加md5码，并在引用中添加相应的md5码
 2、通过cdnizer在引用资源的路径中添加cdn前缀
 ```
+
+## Install
+$ npm install --save-dev gulp-rev<br>
+$ npm install --save-dev gulp-rev-collector<br>
+$ npm install --save-dev gulp-cdnizer
+
+## Usage
 ### addMd5
 图片添加md5码并将文件中引用的图片文件名做相应更改，也可以用此方法给js，css文件添加md5码
 
@@ -40,7 +42,6 @@ gulp.task('replaceJs',['img',  'fonts', 'html','other'], function(){
 gulp.task('build', ['img', 'fonts', 'cdn', 'other', 'replaceCss', 'replaceJs', 'jsCdn']);
 ```
 
-	
 ###addCdn
 给引用的资源路径添加md5前缀
 给js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不需要进行操作
