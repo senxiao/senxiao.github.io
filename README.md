@@ -10,7 +10,7 @@ $ npm install --save-dev gulp-cdnizer
 2、给引用的资源添加cdn前缀
 ```
 ### addMd5
-######图片添加md5码
+`图片添加md5码`
 ```javascript
 var rev = require('gulp-rev'); 
 var revCollector = require('gulp-rev-collector');   
