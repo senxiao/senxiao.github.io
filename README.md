@@ -10,7 +10,7 @@ $ npm install --save-dev gulp-cdnizer
 2、给引用的资源添加cdn前缀
 ```
 ### addMd5
-	图片添加md5码
+#####图片添加md5码
 ```javascript
 var rev = require('gulp-rev'); 
 var revCollector = require('gulp-rev-collector');   
@@ -50,7 +50,7 @@ gulp.task('cdn', ['html'], function () {
 	)).pipe(gulp.dest(path.join(conf.paths.dist,'/')));	
 	return true;
 });
-//js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不要在此做操作
+//js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不需要进行操作
 gulp.task('jsCdn',['html','replaceJs'],function(){
 	gulp.src(path.join(conf.paths.dist,'/scripts/*.js'))
 	.pipe(cdnizer({
