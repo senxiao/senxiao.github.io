@@ -4,6 +4,11 @@ $ npm install --save-dev gulp-rev<br>
 $ npm install --save-dev gulp-rev-collector<br>
 $ npm install --save-dev gulp-cdnizer
 ## Usage
+```
+需要解决的问题：
+1、资源的唯一性，以便当文件内容发生变化时，cdn服务器会自动从本地加载新文件
+2、给引用的资源添加cdn前缀
+```
 ### addMd5
 ```javascript
 var rev = require('gulp-rev'); 
