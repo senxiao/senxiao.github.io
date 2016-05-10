@@ -1,4 +1,4 @@
-# senxiao.github.io
+# md5和cdn解决方案
 ## Istall
 $ npm install --save-dev gulp-rev<br>
 $ npm install --save-dev gulp-rev-collector<br>
@@ -9,8 +9,8 @@ $ npm install --save-dev gulp-cdnizer
 1、资源的唯一性，以便当文件内容发生变化时，cdn服务器会自动从本地加载新文件
 2、给引用的资源添加cdn前缀
 解决方案：
-1、给js，css，img文件添加md5码，并在引用中添加相应的md5码
-2、通过替换
+1、通过rev和rev-collector给js，css，img文件添加md5码，并在引用中添加相应的md5码
+2、通过cdnizer在引用资源的路径中添加cdn前缀
 ```
 ### addMd5
 图片添加md5码并将文件中引用的图片文件名做相应更改，也可以用此方法给js，css文件添加md5码
@@ -42,6 +42,9 @@ gulp.task('build', ['img', 'fonts', 'cdn', 'other', 'replaceCss', 'replaceJs', '
 
 	
 ###addCdn
+给引用的资源路径添加md5前缀
+给js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不需要进行操作
+
 ```javascript
 //html加载的css，js文件添加cdn前缀
 var cdnizer = require("gulp-cdnizer");
@@ -54,7 +57,6 @@ gulp.task('cdn', ['html'], function () {
 	)).pipe(gulp.dest(path.join(conf.paths.dist,'/')));	
 	return true;
 });
-//js中引用的图片添加cdn,css中引用的图片路径在线上环境下会自动添加cdn前缀，因此不需要进行操作
 gulp.task('jsCdn',['html','replaceJs'],function(){
 	gulp.src(path.join(conf.paths.dist,'/scripts/*.js'))
 	.pipe(cdnizer({
@@ -63,3 +65,8 @@ gulp.task('jsCdn',['html','replaceJs'],function(){
 	}))
 	.pipe(gulp.dest(path.join(conf.paths.dist,'/scripts')))
 })
+
+### 注意事项：
+cdnizer无法给相对路径添加cdn前缀，需要将路径前面的../替换成cdn
+流程示例：代码合并=>压缩=>添加md5=>添加cdn
+每个部分的操作要依赖于前一个操作，即按顺序一个个执行
